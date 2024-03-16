@@ -1,0 +1,18 @@
+listen:
+    port: 8110
+target:
+    url: "https://crystalarchives.org"
+backend:
+    url: "http://127.0.0.1:9999" # never used by setup
+headless:
+    waitAfterDOMLoad: 5000
+    blockedURLs: [ '*.png', '*.jpg', '*.jpeg', '*.webp' ]
+cache:
+    type: none
+debug: true
+filters:
+    userAgent:
+        defaultPolicy: blacklist
+        exceptions:
+            keywords:
+                - bot

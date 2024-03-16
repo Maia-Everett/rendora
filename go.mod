@@ -10,7 +10,7 @@ require (
 	github.com/gorilla/mux v1.6.2
 	github.com/gorilla/websocket v1.4.0 // indirect
 	github.com/json-iterator/go v1.1.5
-	github.com/mafredri/cdp v0.20.0
+	github.com/mafredri/cdp v0.34.1
 	github.com/mattn/go-isatty v0.0.4 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.1.2 // indirect
