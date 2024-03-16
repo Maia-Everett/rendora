@@ -85,11 +85,12 @@ func getHeadlessExternal(uri string) (*HeadlessResponse, error) {
 
 var targetURL string
 
-func (R *Rendora) getHeadless(uri string) (*HeadlessResponse, error) {
-	return R.h.getResponse(R.c.Target.URL + uri)
+func (R *Rendora) getHeadless(c *gin.Context, uri string) (*HeadlessResponse, error) {
+	log.Println("Host: " + c.Request.Host)
+	return R.h.getResponse("https://" + c.Request.Host + uri)
 }
 
-func (R *Rendora) getResponse(uri string) (*HeadlessResponse, error) {
+func (R *Rendora) getResponse(c *gin.Context, uri string) (*HeadlessResponse, error) {
 	cKey := R.c.Cache.Redis.KeyPrefix + ":" + uri
 	resp, exists, err := R.cache.get(cKey)
 
@@ -101,7 +102,7 @@ func (R *Rendora) getResponse(uri string) (*HeadlessResponse, error) {
 		return resp, nil
 	}
 
-	dt, err := R.getHeadless(uri)
+	dt, err := R.getHeadless(c, uri)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +122,7 @@ func (R *Rendora) getResponse(uri string) (*HeadlessResponse, error) {
 
 func (R *Rendora) getSSR(c *gin.Context) {
 
-	resp, err := R.getResponse(c.Request.RequestURI)
+	resp, err := R.getResponse(c, c.Request.RequestURI)
 	if err != nil {
 		c.AbortWithStatus(http.StatusServiceUnavailable)
 		return
